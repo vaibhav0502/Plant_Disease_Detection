@@ -1,3 +1,5 @@
+import os
+import yaml
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -5,6 +7,13 @@ import numpy as np
 from io import BytesIO
 from PIL import Image
 import tensorflow as tf
+
+file_path = f"{os.getcwd()}/config.yml"    
+
+with open(file_path) as data:
+    config_data = yaml.safe_load(data)
+PORT = config_data['port']
+MODEL_PATH = config_data['model_path']
 
 app = FastAPI()
 
@@ -20,7 +29,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL = tf.keras.models.load_model("../models/1")
+MODEL = tf.keras.models.load_model(MODEL_PATH)
 
 CLASS_NAMES = ['Pepper__bell___Bacterial_spot', 'Pepper__bell___healthy', 'Potato___Early_blight', 
 'Potato___Late_blight', 'Potato___healthy', 'Tomato_Bacterial_spot', 'Tomato_Early_blight', 'Tomato_Late_blight', 
@@ -52,4 +61,4 @@ async def predict(
     }
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=PORT)

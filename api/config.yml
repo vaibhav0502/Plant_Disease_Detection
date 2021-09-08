@@ -1,0 +1,2 @@
+port: 8000
+model_path: "../models/1"      # saved model path
