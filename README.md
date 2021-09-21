@@ -37,4 +37,4 @@ cd frontend
 npm run start
 ```
 
-![caption](/Plant_Disease.mov)
+https://user-images.githubusercontent.com/42543380/134180491-2fea831a-3d7b-4630-8d4d-1f04760b8acc.mov
